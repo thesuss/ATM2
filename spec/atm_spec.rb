@@ -25,7 +25,8 @@ describe Atm do
             status: true,
             message: 'success',
             date: Date.today,
-            amount: 45}
+            amount: 45,
+            bills: [20, 20, 5]}
           # belopp och konto skjuts in i withdraw funktionen
       expect(subject.withdraw(45, '1234', account)).to eq expected_output
     end
