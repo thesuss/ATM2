@@ -10,6 +10,10 @@ describe Account do
     # and modify our `subject`
     subject { described_class.new({owner: person}) }
 
+    it 'pin has 4 digits' do
+      pin = Math.log10(subject.pin_code).to_i + 1
+      expect(pin).to eq 4
+     end
 
   it 'is expected to have an expiry date on initialize' do
     # Here we set the validity of the card to 5 yrs as default
