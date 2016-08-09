@@ -3,7 +3,7 @@ require './lib/atm'
 
 describe Person do
 
-  subject { described_class.new(name: 'Thomas') }
+  subject { described_class.new(name: 'DuPont') }
 
   it 'is expected to have a :name on initialize' do
     expect(subject.name).not_to be nil
@@ -44,7 +44,7 @@ describe Person do
     it 'can deposit funds' do
       expect(subject.deposit(100)).to be_truthy
     end
-  end 
+  end
 
   describe 'can not manage funds if no account been created' do
     # As a Person without a Bank Account,
