@@ -18,26 +18,17 @@ class Person
   # ungefär samma som om namnet/ägare saknas..
   def deposit(amount)
       @account == nil ?  missing_account : deposit_funds(amount)
-
-    end
-
-  def missing_account
-    raise "No account present"
   end
 
-  #Hen ska ju kunna ta UT pengar också
-  def withdraw(attrs = {})
-    get_money(:amount)
-  end
+  def withdraw(args = {})
+     @account == nil ? missing_account : withdraw_funds(args)
+   end
 
   private
+
     #samma som owner i account...
     def set_name(obj)
     obj == nil ?  missing_name : @name = obj
-  end
-
-  def missing_name
-    raise "A name is required"
   end
 
   def deposit_funds(amount)
@@ -45,10 +36,29 @@ class Person
     @account.balance = @account.balance + amount
   end
 
-  def get_money(amount)
-    @cash -= amount
-    @account.balance = @account.balance - amount
+  def withdraw_funds(args)
+    args[:atm] == nil ? missing_atm : atm = args[:atm]
+    account = @account
+    #binding.pry
+    amount = args[:amount]
+    pin = args[:pin]
+    response = atm.withdraw(amount, pin, account)
+    response[:status] == true ? increase_cash(response) : response
   end
 
+  def increase_cash(response)
+    @cash += response[:amount]
+  end
 
+  def missing_account
+    raise "No account present"
+  end
+
+  def missing_name
+    raise "A name is required"
+  end
+
+  def missing_atm
+    raise "An ATM is required"
+  end
 end
