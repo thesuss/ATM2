@@ -15,7 +15,7 @@ class Person
     @account = Account.new(owner: self)
   end
 
-# ungefär samma som om namnet saknas..
+  # ungefär samma som om namnet/ägare saknas..
   def deposit(amount)
       @account == nil ?  missing_account : deposit_funds(amount)
     end
