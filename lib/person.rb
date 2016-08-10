@@ -18,10 +18,16 @@ class Person
   # ungefär samma som om namnet/ägare saknas..
   def deposit(amount)
       @account == nil ?  missing_account : deposit_funds(amount)
+
     end
 
   def missing_account
     raise "No account present"
+  end
+
+  #Hen ska ju kunna ta UT pengar också
+  def withdraw(attrs = {})
+    get_money(:amount)
   end
 
   private
@@ -36,7 +42,13 @@ class Person
 
   def deposit_funds(amount)
     @cash -= amount
+    @account.balance = @account.balance + amount
+  end
+
+  def get_money(amount)
+    @cash -= amount
     @account.balance = @account.balance - amount
   end
+
 
 end
