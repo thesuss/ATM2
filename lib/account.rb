@@ -1,3 +1,5 @@
+require 'Date'
+
 class Account
 
 
@@ -18,7 +20,7 @@ class Account
     @account_status = :active
     #owner från ovan får attribut från låtsasklassen i rspec
     @owner = set_owner(attrs[:owner])
-    #sätter balance så den kan användas från andra klasser  
+    #sätter balance så den kan användas från andra klasser
     @balance = 0
 
   end

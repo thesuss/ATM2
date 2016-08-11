@@ -1,5 +1,5 @@
-require 'atm.rb'
-require 'account.rb'
+require './lib/atm.rb'
+require './lib/account.rb'
 
 class Person
   attr_accessor :name, :cash, :account, :deposit
