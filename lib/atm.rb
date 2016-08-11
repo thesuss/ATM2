@@ -1,30 +1,22 @@
 class Atm
   attr_accessor :funds
-  #Den gör nedanstående
-  #def funds=(value)
-  #   @funds = value
-  #end
-  #def funds
-  #  @funds
-  #end
 
   def initialize
-    #sätter ovan till 1000 när atm skapas
     @funds = 1000
   end
 
   def withdraw(amount, pin_code, account)
     case
     when insufficient_funds_in_account?(amount,account) then
-      { status: false, message: 'insufficient funds', date: Date.today }
+      give_error_message('insufficient funds')
     when insufficient_funds_in_atm?(amount) then
-      { status: false, message: 'insufficient funds in ATM', date: Date.today }
+      give_error_message('insufficient funds in ATM')
     when incorrect_pin?(pin_code, account.pin_code) then
-      { status: false, message: 'wrong pin', date: Date.today }
+      give_error_message('wrong pin')
     when card_expired?(account.exp_date) then
-      { status: false, message: 'card expired', date: Date.today }
+      give_error_message('card expired')
     when account_disabled?(account.account_status) then
-      { status: false, message: 'account disabled', date: Date.today }
+      give_error_message('account disabled')
     else
       perform_transaction(amount, account)
     end
@@ -32,11 +24,14 @@ class Atm
 
   private
 
+  def give_error_message(message)
+    { status: false, message: message, date: Date.today }
+  end
+
    def insufficient_funds_in_account?(amount, account)
      amount > account.balance
    end
 
-   #när maskinen har mindre pengar än man vill ta ut
    def insufficient_funds_in_atm?(amount)
      @funds < amount
    end
@@ -64,7 +59,6 @@ class Atm
    end
 
    def card_expired?(exp_date)
-     #tar bort tid från datumet och visar med månad och år, om det är lägre än idag har kortet gått ut
      Date.strptime(exp_date, '%m/%y') < Date.today
    end
 
